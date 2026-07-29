@@ -591,7 +591,7 @@ background-position: center 20%;
 
   /* ===== LE SPORT ===== */
   #sport {
-    background: var(--gris-fonce);
+    background: linear-gradient(180deg, #ffffff 0%, #F4D0D7 15%, #e8e0e0 50%, #F4D0D7 85%, #ffffff 100%);
     position: relative;
     overflow: hidden;
   }
@@ -630,7 +630,7 @@ background-position: center 20%;
   .feature-num {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 2rem;
-    color: rgba(200,16,46,0.3);
+    color: var(--rouge);
     line-height: 1;
     min-width: 36px;
   }
@@ -688,19 +688,19 @@ background-position: center 20%;
 
   /* ===== ENTRAÎNEMENTS ===== */
   #entrainements {
-    background: var(--blanc);
+    background: linear-gradient(180deg, #ffffff 0%, #F4D0D7 15%, #e8e0e0 50%, #F4D0D7 85%, #ffffff 100%);
   }
 
   .schedule-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: 1fr;
     gap: 1.5rem;
     margin-bottom: 3rem;
   }
 
   .schedule-card {
     background: var(--blanc);
-    border: 1px solid var(--bordure);
+    border: 1px solid var(--rouge);
     border-radius: 4px;
     padding: 2rem;
     position: relative;
@@ -715,12 +715,12 @@ background-position: center 20%;
 
   .schedule-card.featured {
     border-color: var(--rouge);
-    background: linear-gradient(135deg, rgba(200,16,46,0.04) 0%, var(--blanc) 100%);
+    background: var(--blanc);
   }
 
   .schedule-card.mercredi {
-    border-color: var(--rouge-fonce);
-    background: linear-gradient(135deg, rgba(139,11,31,0.04) 0%, var(--blanc) 100%);
+    border-color: var(--rouge);
+    background: var(--blanc);
   }
 
   .schedule-day {
@@ -757,7 +757,7 @@ background-position: center 20%;
     border-radius: 4px;
     padding: 2rem;
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr;
     gap: 2rem;
     align-items: center;
   }
@@ -819,7 +819,7 @@ background-position: center 20%;
 
   .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr;
     grid-template-rows: auto;
     gap: 0.8rem;
   }
@@ -881,7 +881,7 @@ background-position: center 20%;
 
   .join-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 4rem;
     align-items: start;
   }
@@ -1078,7 +1078,7 @@ background-position: center 20%;
 
   .temoignages-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: 1fr;
     gap: 1.5rem;
   }
 
@@ -1198,7 +1198,7 @@ background-position: center 20%;
 
   .footer-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 3rem;
     margin-bottom: 2rem;
   }
@@ -1480,10 +1480,10 @@ background-position: center 20%;
 
     .join-grid { grid-template-columns: 1fr; }
 
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
     .footer-brand { grid-column: span 2; }
 
-    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .gallery-grid { grid-template-columns: 1fr; }
     .gallery-item:first-child { grid-column: span 2; }
 
     .lieu-card { grid-template-columns: 1fr; }
@@ -1704,17 +1704,17 @@ background-position: center 20%;
 </section>
 
 <!-- TARIFS -->
-<section id="tarifs" aria-labelledby="tarifs-title" style="background: var(--gris-fonce); position: relative; overflow: hidden;">
+<section id="tarifs" aria-labelledby="tarifs-title" style="background: linear-gradient(180deg, #ffffff 0%, #F4D0D7 15%, #e8e0e0 50%, #F4D0D7 85%, #ffffff 100%); position: relative; overflow: hidden;">
   <div style="position:absolute;right:-150px;top:50%;transform:translateY(-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(200,16,46,0.06) 0%,transparent 70%);pointer-events:none;" aria-hidden="true"></div>
   <div class="section-inner">
     <p class="section-label">Cotisations</p>
     <h2 class="section-title" id="tarifs-title">Rejoindre le Club</h2>
     <p class="section-desc">Cotisation valable 1 an à compter de la date d'inscription, à tout moment de l'année. <strong style="color:var(--rouge);">1ère séance offerte</strong> — viens tester avant de t'inscrire !</p>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;margin-bottom:3rem;">
+    <div style="display:grid;grid-template-columns:1fr;gap:1.5rem;margin-bottom:3rem;">
 
       <!-- Jeune -->
-      <div style="background:var(--blanc);border:1px solid var(--bordure);border-top:3px solid var(--rouge);border-radius:4px;padding:2rem;display:flex;flex-direction:column;gap:1rem;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(200,16,46,0.12)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+      <div style="background:var(--blanc);border:2px solid var(--rouge);border-radius:4px;padding:2rem;display:flex;flex-direction:column;gap:1rem;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(200,16,46,0.12)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
         <div>
           <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.2rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--texte-principal);margin-bottom:0.3rem;">Cotisation Jeune</div>
           <div style="font-size:0.8rem;color:var(--texte-leger);font-style:italic;">Pour les 13–18 ans</div>
@@ -1735,27 +1735,27 @@ background-position: center 20%;
       </div>
 
       <!-- Loisir -->
-      <div style="background:var(--blanc);border:1px solid var(--bordure);border-top:3px solid var(--rouge-fonce);border-radius:4px;padding:2rem;display:flex;flex-direction:column;gap:1rem;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(200,16,46,0.12)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+      <div style="background:var(--blanc);border:2px solid var(--rouge);border-radius:4px;padding:2rem;display:flex;flex-direction:column;gap:1rem;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(200,16,46,0.12)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
         <div>
           <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.2rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--texte-principal);margin-bottom:0.3rem;">Cotisation Loisir</div>
           <div style="font-size:0.8rem;color:var(--texte-leger);font-style:italic;">Pour tous, dès 18 ans</div>
         </div>
         <div style="display:flex;align-items:baseline;gap:6px;">
-          <span style="font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:var(--rouge-fonce);line-height:1;">222</span>
-          <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:700;color:var(--rouge-fonce);">€</span>
+          <span style="font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:var(--rouge);line-height:1;">222</span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:700;color:var(--rouge);">€</span>
           <span style="font-size:0.8rem;color:var(--texte-leger);margin-left:4px;">/ an</span>
         </div>
         <ul style="list-style:none;display:flex;flex-direction:column;gap:0.55rem;margin:0;padding:0;flex:1;">
-          <li style="display:flex;align-items:flex-start;gap:10px;font-size:0.88rem;color:var(--texte-secondaire);"><span style="color:var(--rouge-fonce);font-weight:700;flex-shrink:0;">✓</span>2 entraînements/semaine (mer. 19h–21h &amp; dim. 14h–17h)</li>
-          <li style="display:flex;align-items:flex-start;gap:10px;font-size:0.88rem;color:var(--texte-secondaire);"><span style="color:var(--rouge-fonce);font-weight:700;flex-shrink:0;">✓</span>Accès aux compétitions régionales</li>
-          <li style="display:flex;align-items:flex-start;gap:10px;font-size:0.88rem;color:var(--texte-secondaire);"><span style="color:var(--rouge-fonce);font-weight:700;flex-shrink:0;">✓</span>Licence loisir auprès de la FFForce</li>
-          <li style="display:flex;align-items:flex-start;gap:10px;font-size:0.88rem;color:var(--texte-secondaire);"><span style="color:var(--rouge-fonce);font-weight:700;flex-shrink:0;">✓</span>Assurance Responsabilité Civile</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:0.88rem;color:var(--texte-secondaire);"><span style="color:var(--rouge);font-weight:700;flex-shrink:0;">✓</span>2 entraînements/semaine (mer. 19h–21h &amp; dim. 14h–17h)</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:0.88rem;color:var(--texte-secondaire);"><span style="color:var(--rouge);font-weight:700;flex-shrink:0;">✓</span>Accès aux compétitions régionales</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:0.88rem;color:var(--texte-secondaire);"><span style="color:var(--rouge);font-weight:700;flex-shrink:0;">✓</span>Licence loisir auprès de la FFForce</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:0.88rem;color:var(--texte-secondaire);"><span style="color:var(--rouge);font-weight:700;flex-shrink:0;">✓</span>Assurance Responsabilité Civile</li>
         </ul>
-        <a href="rejoindre.html" style="display:block;text-align:center;background:transparent;border:1.5px solid var(--rouge-fonce);color:var(--rouge-fonce);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.9rem;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;padding:11px;border-radius:2px;transition:background 0.2s,color 0.2s;" onmouseover="this.style.background='var(--rouge-fonce)';this.style.color='white'" onmouseout="this.style.background='transparent';this.style.color='var(--rouge-fonce)'">Je m'inscris</a>
+        <a href="rejoindre.html" style="display:block;text-align:center;background:transparent;border:1.5px solid var(--rouge);color:var(--rouge);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.9rem;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;padding:11px;border-radius:2px;transition:background 0.2s,color 0.2s;" onmouseover="this.style.background='var(--rouge)';this.style.color='white'" onmouseout="this.style.background='transparent';this.style.color='var(--rouge)'">Je m'inscris</a>
       </div>
 
       <!-- Compétition -->
-      <div style="background:linear-gradient(135deg,rgba(200,16,46,0.06) 0%,var(--blanc) 100%);border:2px solid var(--rouge);border-radius:4px;padding:2rem;display:flex;flex-direction:column;gap:1rem;position:relative;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(200,16,46,0.2)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+      <div style="background:var(--blanc);border:2px solid var(--rouge);border-radius:4px;padding:2rem;display:flex;flex-direction:column;gap:1rem;position:relative;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(200,16,46,0.2)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
         <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--rouge);color:white;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;padding:4px 14px;border-radius:2px;white-space:nowrap;">Compétiteur</div>
         <div>
           <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.2rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--texte-principal);margin-bottom:0.3rem;">Cotisation Compétition</div>
@@ -1777,7 +1777,7 @@ background-position: center 20%;
       </div>
 
       <!-- Séance à l'unité -->
-      <div style="background:var(--blanc);border:1px solid var(--bordure);border-top:3px solid var(--rouge-clair);border-radius:4px;padding:2rem;display:flex;flex-direction:column;gap:1rem;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(200,16,46,0.1)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+      <div style="background:var(--blanc);border:2px solid var(--rouge);border-radius:4px;padding:2rem;display:flex;flex-direction:column;gap:1rem;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(200,16,46,0.1)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
         <div>
           <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.2rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--texte-principal);margin-bottom:0.3rem;">Séance à l'unité</div>
           <div style="font-size:0.8rem;color:var(--texte-leger);font-style:italic;">Formule flexible</div>
@@ -1789,8 +1789,8 @@ background-position: center 20%;
             <span style="font-size:0.8rem;color:var(--texte-leger);margin-left:4px;">à l'inscription</span>
           </div>
           <div style="display:flex;align-items:baseline;gap:6px;">
-            <span style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--rouge-fonce);line-height:1;">+ 10</span>
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:var(--rouge-fonce);">€</span>
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--rouge);line-height:1;">+ 10</span>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:var(--rouge);">€</span>
             <span style="font-size:0.8rem;color:var(--texte-leger);margin-left:4px;">/ séance</span>
           </div>
         </div>
@@ -1806,7 +1806,7 @@ background-position: center 20%;
     </div>
 
     <!-- Modalités de paiement -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+    <div style="display:grid;grid-template-columns:1fr;gap:1.5rem;">
       <div style="background:var(--blanc);border:1px solid var(--bordure-forte);border-radius:4px;padding:1.5rem;">
         <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--rouge);margin-bottom:1rem;">Modalités de paiement</div>
         <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem;">
