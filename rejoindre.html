@@ -900,8 +900,15 @@ background-position: center 65%;
     display: flex;
     gap: 1.5rem;
     align-items: flex-start;
-    padding-bottom: 2rem;
+    padding: 0.6rem 0.8rem 2rem;
     position: relative;
+    border-radius: 2px;
+    transition: transform 0.25s ease, background 0.25s ease;
+  }
+
+  .join-step:hover {
+    background: rgba(200,16,46,0.03);
+    transform: translateX(4px);
   }
 
   .step-num {
@@ -1097,12 +1104,13 @@ background-position: center 65%;
     border: 1px solid var(--bordure);
     border-radius: 4px;
     padding: 2rem;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: border-color 0.2s, box-shadow 0.25s ease, transform 0.25s ease;
   }
 
   .temoignage-card:hover {
     border-color: var(--rouge);
-    box-shadow: 0 4px 20px rgba(200,16,46,0.08);
+    box-shadow: 0 10px 26px rgba(200,16,46,0.12);
+    transform: translateY(-5px);
   }
 
   .stars {
