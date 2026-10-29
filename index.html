@@ -1558,7 +1558,6 @@ background-position: center center;
   .reveal-zoom { transform: scale(0.92); }
   .reveal.is-visible { opacity: 1; transform: none; }
 
-  .hero-content { will-change: transform, opacity; }
   .sport-photo { overflow: visible; }
   .sport-photo img { transform: scale(1.08); will-change: transform; }
   .sport-photo-frame { border-radius: 10px; overflow: hidden; box-shadow: 0 18px 40px rgba(0,0,0,0.18); }
@@ -1656,11 +1655,6 @@ background-position: center center;
         Sport de force, de stratégie et très technique, ouvert à toutes et tous dès 13 ans, dans une ambiance conviviale au cœur de l'Alsace. 
         Que vous visiez la compétition ou simplement le plaisir de progresser entre amis, votre première séance est offerte : venez découvrir ce beau sport sans attendre !
       </p>
-      <ul class="hero-facts" aria-label="Infos pratiques">
-        <li><strong>Mercredi</strong> 19h – 21h</li>
-        <li><strong>Dimanche</strong> 14h – 17h</li>
-        <li><strong>1ère séance</strong> offerte</li>
-      </ul>
       <div class="hero-event-links">
         <a href="open-2026.html" class="hero-event-link">
           Retour sur la 1ère compétition officielle organisée par le&nbsp;club&nbsp;<span aria-hidden="true">→</span>
@@ -2181,7 +2175,6 @@ background-position: center center;
     }
 
     const bar = document.getElementById('scroll-progress');
-    const heroContent = document.querySelector('.hero-content');
     const photo = document.querySelector('.sport-photo-frame img');
     let ticking = false;
     function update() {
@@ -2190,10 +2183,6 @@ background-position: center center;
       const max = document.documentElement.scrollHeight - window.innerHeight;
       if (bar) bar.style.transform = 'scaleX(' + (max > 0 ? y / max : 0) + ')';
       if (calm) return;
-      if (heroContent && y < window.innerHeight * 1.2) {
-        heroContent.style.transform = 'translateY(' + y * 0.25 + 'px)';
-        heroContent.style.opacity = Math.max(0, 1 - y / (window.innerHeight * 0.9));
-      }
       if (photo) {
         const r = photo.parentElement.getBoundingClientRect();
         const p = (r.top + r.height / 2 - window.innerHeight / 2) / window.innerHeight;
