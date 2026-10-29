@@ -442,6 +442,8 @@ background-position: center center;
     transition: background 0.2s, border-color 0.2s;
   }
   .hero-event-link:hover { background: var(--rouge); border-color: var(--rouge); }
+  .hero-event-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; margin: 0 0 2rem; }
+  .hero-event-links .hero-event-link { margin: 0; }
   .hero-event-link span { transition: transform 0.2s; }
   .hero-event-link:hover span { transform: translateX(3px); }
   @media (max-width: 600px) {
@@ -1567,13 +1569,14 @@ background-position: center center;
         Sport de force et de stratégie, ouvert à tous dès 13 ans, dans une ambiance conviviale au cœur de l'Alsace. 
         Que vous visiez la compétition ou simplement le plaisir de progresser entre amis, votre première séance est offerte : venez découvrir ce beau sport sans attendre !
       </p>
-      <div class="hero-actions">
-        <a href="#tarifs" class="btn-blue">Rejoindre le club</a>
-        <a href="#entrainements" class="btn-outline">Voir les horaires</a>
+      <div class="hero-event-links">
+        <a href="open-2026.html" class="hero-event-link">
+          Retour sur l'Open Grand&nbsp;Est &amp;&nbsp;l'Open&nbsp;d'Alsace&nbsp;<span aria-hidden="true">→</span>
+        </a>
+        <a href="https://drive.google.com/drive/folders/1_I4pBaxywZBYS7TdaqFgMRgJM4-BiZn5" target="_blank" rel="noopener" class="hero-event-link">
+          Toutes les photos et vidéos de l'Open&nbsp;<span aria-hidden="true">→</span>
+        </a>
       </div>
-      <a href="open-2026.html" class="hero-event-link">
-        Retour sur l'Open Grand&nbsp;Est &amp;&nbsp;l'Open&nbsp;d'Alsace&nbsp;<span aria-hidden="true">→</span>
-      </a>
     </div>
 
     </div>
