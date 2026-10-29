@@ -425,6 +425,29 @@ background-position: center center;
   }
   .btn-blue:hover { background: var(--rouge); transform: translateY(-2px); }
 
+  .hero-event-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: -1.5rem 0 2rem;
+    padding: 8px 18px;
+    border: 1px solid rgba(200, 16, 46, 0.5);
+    border-radius: 999px;
+    background: rgba(200, 16, 46, 0.12);
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .hero-event-link:hover { background: var(--rouge); border-color: var(--rouge); }
+  .hero-event-link span { transition: transform 0.2s; }
+  .hero-event-link:hover span { transform: translateX(3px); }
+  @media (max-width: 600px) {
+    .hero-event-link { display: inline-block; max-width: 290px; padding: 8px 18px; border-radius: 14px; text-align: center; line-height: 1.35; }
+  }
+
   .hero-stats {
     display: flex;
     gap: 3rem;
@@ -1548,6 +1571,9 @@ background-position: center center;
         <a href="#tarifs" class="btn-blue">Rejoindre le club</a>
         <a href="#entrainements" class="btn-outline">Voir les horaires</a>
       </div>
+      <a href="galerie.html#open-2026" class="hero-event-link">
+        Retour sur l'Open Grand&nbsp;Est &amp;&nbsp;l'Open&nbsp;d'Alsace&nbsp;<span aria-hidden="true">→</span>
+      </a>
     </div>
 
     </div>
