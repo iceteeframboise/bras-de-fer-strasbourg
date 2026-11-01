@@ -2582,8 +2582,8 @@ background-position: center 55%;
 
     /* Mise en place */
     const sw = clamp(Math.min(W, H) * 0.125, 46, 70), sh = sw * 112 / 60;
-    const TW = Math.min(W * 0.92, 520, H * 0.667), TH = TW * 180 / 400, ts = TW / 400;
-    const truckTop = H - TH - 14, truckX = (W - TW) / 2;
+    const TW = Math.min(W * 0.8, 520, H * 0.667), TH = TW * 180 / 400, ts = TW / 400;
+    const truckTop = H - TH - 14, truckX = Math.min(W - TW - 6, Math.max((W - TW) / 2, sw * 1.6));
     const cx = W / 2, cy = H * 0.42;
     const V = clamp(Math.min(W, H) * 0.3, 100, 180);
     const Rx = Math.min(W * 0.4, 340);
@@ -2614,34 +2614,63 @@ background-position: center 55%;
       waveA: ['19,40 9,29 5,14', '41,40 45,55 45,68'],
       waveB: ['19,40 12,28 14,12', '41,40 45,55 45,68']
     };
-    const limb = (cls, pts) => `<polyline class="${cls}" points="${pts}" fill="none" stroke="#1d6a28" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/><polyline class="${cls}" points="${pts}" fill="none" stroke="#3aa849" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>`;
+    /* Dégradés partagés : plastique vert brillant éclairé par la gauche */
+    const defs = document.createElement('div');
+    defs.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden';
+    defs.innerHTML = `<svg width="0" height="0"><defs>
+      <linearGradient id="vsP" x1="0" x2="1"><stop offset="0" stop-color="#7ddc86"/><stop offset=".35" stop-color="#43b052"/><stop offset=".75" stop-color="#2c8a3a"/><stop offset="1" stop-color="#1c6328"/></linearGradient>
+      <linearGradient id="vsPv" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6fd27a"/><stop offset=".5" stop-color="#36a045"/><stop offset="1" stop-color="#1f6f2b"/></linearGradient>
+      <radialGradient id="vsHelm" cx=".35" cy=".3" r=".85"><stop offset="0" stop-color="#9be8a2"/><stop offset=".35" stop-color="#4bb859"/><stop offset="1" stop-color="#1f6f2b"/></radialGradient>
+    </defs></svg>`;
+    ov.appendChild(defs);
+    const limb = (cls, pts) => `<polyline class="${cls}" points="${pts}" fill="none" stroke="#165420" stroke-width="8.6" stroke-linecap="round" stroke-linejoin="round"/>`
+      + `<polyline class="${cls}" points="${pts}" fill="none" stroke="#3aa849" stroke-width="6.4" stroke-linecap="round" stroke-linejoin="round"/>`
+      + `<polyline class="${cls}" points="${pts}" fill="none" stroke="rgba(190,255,190,.35)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" transform="translate(-1 -.6)"/>`;
+    const hand = cls => `<circle class="${cls}" r="3.6" fill="#45b553" stroke="#165420" stroke-width="1.1"/>`;
     const makeSoldier = (face, i) => {
       const el = document.createElement('div');
       el.className = 'vs-soldier';
       el.style.width = sw + 'px'; el.style.height = sh + 'px';
       el.innerHTML = `<svg viewBox="0 0 60 112">
-        <defs>
-          <clipPath id="vsf${i}"><circle cx="30" cy="24" r="12.6"/></clipPath>
-          <linearGradient id="vsg${i}" x1="0" x2="1"><stop offset="0" stop-color="#55c463"/><stop offset=".5" stop-color="#2f9a3f"/><stop offset="1" stop-color="#1d6a28"/></linearGradient>
-        </defs>
-        <ellipse cx="30" cy="109" rx="21" ry="3" fill="rgba(0,0,0,.3)"/>
-        <rect x="11" y="100" width="38" height="8" rx="4" fill="#2a8a37"/>
-        ${limb('lg', '26,70 24,86 23,102')}${limb('lg', '34,70 36,86 37,102')}
-        <path d="M18 38 Q30 33 42 38 L41 73 L19 73 Z" fill="url(#vsg${i})" stroke="#1d6a28" stroke-width="1"/>
-        <path d="M22 44 h6 v6 h-6 z M32 44 h6 v6 h-6 z" fill="none" stroke="#1d6a28" stroke-width="1"/>
-        <rect x="19" y="62" width="22" height="4" fill="#1d6a28"/><rect x="28" y="61.5" width="4" height="5" fill="#2f9a3f" stroke="#1d6a28" stroke-width=".6"/>
-        <rect x="27" y="33" width="6" height="5" fill="#2f9a3f"/>
-        ${limb('a1', POSES.down[0])}${limb('a2', POSES.down[1])}
-        <circle cx="30" cy="24" r="13.4" fill="#2f9a3f"/>
+        <defs><clipPath id="vsf${i}"><circle cx="30" cy="24" r="12.6"/></clipPath></defs>
+        <ellipse cx="30" cy="109" rx="22" ry="3" fill="rgba(0,0,0,.35)"/>
+        <path d="M9 103 Q9 99 15 99 L45 99 Q51 99 51 103 L51 105 Q51 108 45 108 L15 108 Q9 108 9 105 Z" fill="#257a31" stroke="#165420" stroke-width="1"/>
+        <path d="M11 102 Q12 100 16 100 L44 100 Q48 100 49 102 Z" fill="rgba(170,255,170,.3)"/>
+        <path d="M20 71 L29.5 71 L28.5 88 L28 96 L20.5 96 L21 87 Z" fill="url(#vsP)" stroke="#165420" stroke-width="1"/>
+        <path d="M30.5 71 L40 71 L39 87 L39.5 96 L32 96 L31.5 88 Z" fill="url(#vsP)" stroke="#165420" stroke-width="1"/>
+        <path d="M22 84 Q25 86 28 84 M32 84 Q35 86 38 84" fill="none" stroke="#165420" stroke-width=".8"/>
+        <path d="M19 95 L29 95 L29.5 100 L17.5 100 Q17.5 97 19 95 Z M31 95 L41 95 Q42.5 97 42.5 100 L30.5 100 Z" fill="#2a8a37" stroke="#165420" stroke-width="1"/>
+        <path d="M18.5 66 L41.5 66 L40.5 74 L30 74.5 L19.5 74 Z" fill="url(#vsP)" stroke="#165420" stroke-width="1"/>
+        <path d="M16 41 Q16.5 35 24 34 L36 34 Q43.5 35 44 41 L42.5 66 Q30 68.5 17.5 66 Z" fill="url(#vsP)" stroke="#165420" stroke-width="1.1"/>
+        <path d="M24.5 34 L30 42 L35.5 34" fill="none" stroke="#165420" stroke-width="1.1"/>
+        <path d="M24.5 34 L27 40 L30 42 Z M35.5 34 L33 40 L30 42 Z" fill="#4bb859" stroke="#165420" stroke-width=".6"/>
+        <line x1="30" y1="42" x2="30" y2="64" stroke="#165420" stroke-width=".9"/>
+        <circle cx="30" cy="48" r=".9" fill="#165420"/><circle cx="30" cy="55" r=".9" fill="#165420"/>
+        <path d="M20.5 44 h7 v7.5 h-7 z M32.5 44 h7 v7.5 h-7 z" fill="rgba(0,0,0,.06)" stroke="#165420" stroke-width=".8"/>
+        <path d="M20.5 44 h7 v2.6 h-7 z M32.5 44 h7 v2.6 h-7 z" fill="#4bb859" stroke="#165420" stroke-width=".7"/>
+        <path d="M18 37.5 Q20 36 23 36" fill="none" stroke="rgba(200,255,200,.5)" stroke-width="1.4" stroke-linecap="round"/>
+        <rect x="17.5" y="62.5" width="25" height="4.4" rx="1" fill="#22742e" stroke="#165420" stroke-width=".8"/>
+        <rect x="27.6" y="62" width="4.8" height="5.4" rx=".8" fill="#5cc768" stroke="#165420" stroke-width=".7"/>
+        <rect x="19" y="65" width="5" height="6" rx="1" fill="#2c8a3a" stroke="#165420" stroke-width=".7"/>
+        <rect x="36" y="65" width="5" height="6" rx="1" fill="#2c8a3a" stroke="#165420" stroke-width=".7"/>
+        <path d="M26 32 L34 32 L35 36 L25 36 Z" fill="#33994a" stroke="#165420" stroke-width=".8"/>
+        ${limb('a1', POSES.down[0])}${limb('a2', POSES.down[1])}${hand('h1')}${hand('h2')}
+        <circle cx="30" cy="24" r="13.6" fill="#2c8a3a"/>
         <image href="${face.src}" x="${face.x}" y="${face.y}" width="${face.w}" height="${face.h}" clip-path="url(#vsf${i})" preserveAspectRatio="none"/>
-        <circle cx="30" cy="24" r="13" fill="none" stroke="#1d6a28" stroke-width="1.4"/>
-        <path d="M17 15 Q17 2 30 2 Q43 2 43 15 Z" fill="url(#vsg${i})" stroke="#1d6a28" stroke-width="1"/>
-        <rect x="14" y="13.2" width="32" height="3.6" rx="1.8" fill="#2a8a37" stroke="#1d6a28" stroke-width=".6"/>
+        <circle cx="30" cy="24" r="12.8" fill="none" stroke="#165420" stroke-width="1.5"/>
+        <path d="M18.2 17 Q17.6 27 21.5 34 M41.8 17 Q42.4 27 38.5 34" fill="none" stroke="#2a8a37" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M16 15.5 Q15.5 1.5 30 1.5 Q44.5 1.5 44 15.5 Z" fill="url(#vsHelm)" stroke="#165420" stroke-width="1.1"/>
+        <path d="M21 9 Q24 4.5 30 4" fill="none" stroke="rgba(230,255,230,.7)" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M12.5 15.2 Q30 12.5 47.5 15.2 L47 18 Q30 15.6 13 18 Z" fill="#2f9a3f" stroke="#165420" stroke-width=".9"/>
       </svg>`;
       el.pose = p => {
         const [a, b] = POSES[p];
         el.querySelectorAll('.a1').forEach(l => l.setAttribute('points', a));
         el.querySelectorAll('.a2').forEach(l => l.setAttribute('points', b));
+        const ha = a.split(' ').pop().split(','), hb = b.split(' ').pop().split(',');
+        const h1 = el.querySelector('.h1'), h2 = el.querySelector('.h2');
+        h1.setAttribute('cx', ha[0]); h1.setAttribute('cy', ha[1]);
+        h2.setAttribute('cx', hb[0]); h2.setAttribute('cy', hb[1]);
       };
       el.x = 0; el.y = 0;
       el.place = (x, y) => { el.x = x; el.y = y; el.style.transform = `translate(${x - sw / 2}px, ${y - sh}px)`; };
@@ -2703,30 +2732,71 @@ background-position: center 55%;
       const truck = document.createElement('div');
       truck.className = 'vs-truck rolling';
       truck.style.width = TW + 'px'; truck.style.height = TH + 'px';
-      const wheel = x => `<g class="vs-wheel"><circle cx="${x}" cy="142" r="23" fill="#1c1c1c"/><circle cx="${x}" cy="142" r="12" fill="#4b5e2a" stroke="#2e3a1a" stroke-width="2"/><path d="M${x - 12} 142 h24 M${x} 130 v24" stroke="#2e3a1a" stroke-width="3"/><circle cx="${x}" cy="142" r="4" fill="#222"/></g>`;
-      let ribs = '';
-      for (let x = 30; x < 250; x += 22) ribs += `<line x1="${x}" y1="64" x2="${x}" y2="114" stroke="#3f5221" stroke-width="2"/>`;
-      let posts = '';
-      for (let x = 14; x <= 252; x += 34) posts += `<line x1="${x}" y1="22" x2="${x}" y2="62" stroke="#3f5221" stroke-width="2.4"/>`;
+      /* Camion militaire en plastique vert, façon jouet moulé */
+      const wheel = x => {
+        let bolts = '';
+        for (let k = 0; k < 6; k++) { const a = k * Math.PI / 3; bolts += `<circle cx="${(x + Math.cos(a) * 8).toFixed(1)}" cy="${(142 + Math.sin(a) * 8).toFixed(1)}" r="1.4" fill="#1f4a17"/>`; }
+        return `<g class="vs-wheel">
+          <circle cx="${x}" cy="142" r="23" fill="url(#vsTire)" stroke="#16260f" stroke-width="1.5"/>
+          <circle cx="${x}" cy="142" r="21" fill="none" stroke="#16260f" stroke-width="3.5" stroke-dasharray="3.2 3.4"/>
+          <circle cx="${x}" cy="142" r="13" fill="url(#vsHub)" stroke="#1f4a17" stroke-width="1.5"/>
+          <circle cx="${x}" cy="142" r="5" fill="#2f6a25" stroke="#1f4a17" stroke-width="1"/>
+          ${bolts}
+          <path d="M${x - 9} ${136} A10 10 0 0 1 ${x + 3} ${132.5}" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="1.6" stroke-linecap="round"/>
+        </g>`;
+      };
+      let stakes = '';
+      for (let x = 12; x <= 246; x += 29) stakes += `<rect x="${x}" y="24" width="5" height="38" rx="1.5" fill="url(#vsTkV)" stroke="#1f4a17" stroke-width=".8"/><rect x="${x - 0.5}" y="58" width="6" height="58" fill="#3c7a2c" opacity=".55"/>`;
+      let slats = '';
+      for (const y of [73, 88, 103]) slats += `<line x1="10" y1="${y}" x2="250" y2="${y}" stroke="#24521b" stroke-width="1.6"/><line x1="10" y1="${y + 1.6}" x2="250" y2="${y + 1.6}" stroke="rgba(255,255,255,.18)" stroke-width="1"/>`;
+      let louvers = '';
+      for (let x = 322; x <= 362; x += 6) louvers += `<line x1="${x}" y1="86" x2="${x}" y2="100" stroke="#24521b" stroke-width="1.6" stroke-linecap="round"/>`;
+      let grill = '';
+      for (let y = 84; y <= 110; y += 4) grill += `<line x1="386" y1="${y}" x2="394" y2="${y}" stroke="#1f4a17" stroke-width="1.4"/>`;
       truck.innerHTML = `<svg viewBox="0 0 400 180">
-        <defs><linearGradient id="vsTk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6d8540"/><stop offset="1" stop-color="#465a26"/></linearGradient></defs>
-        <ellipse cx="200" cy="168" rx="195" ry="7" fill="rgba(0,0,0,.35)"/>
-        ${posts}
-        <line x1="12" y1="22" x2="254" y2="22" stroke="#3f5221" stroke-width="3.5" stroke-linecap="round"/>
-        <rect x="8" y="60" width="250" height="58" rx="3" fill="url(#vsTk)" stroke="#2e3a1a" stroke-width="2"/>
-        ${ribs}
-        <text x="133" y="98" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="26" letter-spacing="3" fill="#d6e0b0" opacity=".8">BDFS ARMY</text>
-        <rect x="6" y="118" width="384" height="12" rx="2" fill="#2e3a1a"/>
-        <path d="M264 120 L264 42 Q264 28 278 28 L356 28 Q370 28 373 42 L388 92 L388 120 Z" fill="url(#vsTk)" stroke="#2e3a1a" stroke-width="2"/>
-        <path d="M302 38 L352 38 Q360 38 362 46 L371 80 L302 80 Z" fill="#a9c4cf" stroke="#2e3a1a" stroke-width="2"/>
-        <path d="M310 42 L330 42 L314 76 L306 76 Z" fill="rgba(255,255,255,.35)"/>
-        <rect x="272" y="40" width="22" height="40" rx="2" fill="#a9c4cf" stroke="#2e3a1a" stroke-width="2"/>
-        <line x1="298" y1="34" x2="298" y2="118" stroke="#2e3a1a" stroke-width="1.5"/>
-        <rect x="282" y="90" width="10" height="3" rx="1" fill="#2e3a1a"/>
-        <rect x="380" y="98" width="14" height="24" rx="2" fill="#2e3a1a"/>
-        <rect x="383" y="88" width="9" height="8" rx="2" fill="#ffe27a"/>
-        <rect x="392" y="44" width="4" height="22" fill="#2e3a1a"/>
-        ${wheel(64)}${wheel(120)}${wheel(330)}
+        <defs>
+          <linearGradient id="vsTkV" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7cc565"/><stop offset=".35" stop-color="#4f9a3d"/><stop offset="1" stop-color="#2d6424"/></linearGradient>
+          <linearGradient id="vsTkH" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3f8531"/><stop offset=".5" stop-color="#58a644"/><stop offset="1" stop-color="#3a7a2d"/></linearGradient>
+          <linearGradient id="vsGlass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d8f0dc"/><stop offset="1" stop-color="#8fbf98"/></linearGradient>
+          <radialGradient id="vsTire" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#3d5a30"/><stop offset="1" stop-color="#1c2f15"/></radialGradient>
+          <radialGradient id="vsHub" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#8fd472"/><stop offset=".6" stop-color="#4a9439"/><stop offset="1" stop-color="#2b5f22"/></radialGradient>
+        </defs>
+        <ellipse cx="200" cy="166" rx="196" ry="8" fill="rgba(0,0,0,.4)"/>
+        <rect x="10" y="22" width="242" height="5" rx="2.5" fill="url(#vsTkV)" stroke="#1f4a17" stroke-width=".8"/>
+        ${stakes}
+        <rect x="6" y="58" width="248" height="60" rx="4" fill="url(#vsTkV)" stroke="#1f4a17" stroke-width="1.5"/>
+        ${slats}
+        <rect x="6" y="58" width="9" height="60" rx="2" fill="url(#vsTkH)" stroke="#1f4a17" stroke-width="1"/>
+        <circle cx="10.5" cy="66" r="1.6" fill="#1f4a17"/><circle cx="10.5" cy="110" r="1.6" fill="#1f4a17"/>
+        <rect x="7" y="61" width="246" height="3" rx="1.5" fill="rgba(255,255,255,.28)"/>
+        <g transform="translate(96 88)" opacity=".9"><circle r="15" fill="none" stroke="#e4f1d2" stroke-width="2.4"/><path d="M0 -12 L3.5 -3.7 L11.4 -3.7 L5 1.4 L7.1 9.7 L0 4.8 L-7.1 9.7 L-5 1.4 L-11.4 -3.7 L-3.5 -3.7 Z" fill="#e4f1d2"/></g>
+        <text x="182" y="96" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="22" letter-spacing="2" fill="#e4f1d2" opacity=".9">BDFS</text>
+        <rect x="6" y="104" width="5" height="9" rx="1" fill="#c0392b"/>
+        <rect x="4" y="117" width="390" height="10" rx="2" fill="#24521b"/>
+        <path d="M40 124 Q40 112 54 112 L140 112 Q154 112 154 124 Z" fill="url(#vsTkV)" stroke="#1f4a17" stroke-width="1.2"/>
+        <rect x="248" y="70" width="11" height="44" rx="5" fill="url(#vsTire)" stroke="#16260f" stroke-width="1"/>
+        <rect x="251" y="84" width="5" height="16" rx="2" fill="#4a9439"/>
+        <path d="M258 118 L258 44 Q258 34 268 34 L294 34 Q301 34 303 41 L313 76 L313 118 Z" fill="url(#vsTkV)" stroke="#1f4a17" stroke-width="1.5"/>
+        <rect x="260" y="36" width="38" height="3" rx="1.5" fill="rgba(255,255,255,.3)"/>
+        <path d="M265 42 L294 42 L304 72 L265 72 Z" fill="url(#vsGlass)" stroke="#1f4a17" stroke-width="1.5"/>
+        <path d="M272 45 L282 45 L274 69 L269 69 Z" fill="rgba(255,255,255,.45)"/>
+        <rect x="262" y="76" width="49" height="40" rx="3" fill="none" stroke="#24521b" stroke-width="1.4"/>
+        <rect x="290" y="84" width="11" height="3.5" rx="1.5" fill="#24521b"/>
+        <rect x="262" y="104" width="12" height="6" rx="1" fill="#24521b"/>
+        <path d="M313 118 L313 76 L376 76 Q384 76 386 83 L388 118 Z" fill="url(#vsTkV)" stroke="#1f4a17" stroke-width="1.5"/>
+        <rect x="314" y="78" width="70" height="3" rx="1.5" fill="rgba(255,255,255,.3)"/>
+        <line x1="350" y1="77" x2="350" y2="117" stroke="#24521b" stroke-width="1.2"/>
+        ${louvers}
+        <rect x="384" y="80" width="12" height="34" rx="2" fill="#3a7a2d" stroke="#1f4a17" stroke-width="1.2"/>
+        ${grill}
+        <circle cx="378" cy="86" r="5.5" fill="#ffeaa0" stroke="#1f4a17" stroke-width="1.5"/>
+        <circle cx="376.5" cy="84.5" r="1.8" fill="#fff"/>
+        <rect x="378" y="114" width="20" height="8" rx="2" fill="#2d6424" stroke="#1f4a17" stroke-width="1"/>
+        <line x1="306" y1="40" x2="316" y2="40" stroke="#1f4a17" stroke-width="1.6"/>
+        <rect x="314" y="34" width="5" height="12" rx="1.5" fill="#3a7a2d" stroke="#1f4a17" stroke-width="1"/>
+        <path d="M316 124 Q318 104 345 102 Q372 104 374 124 Z" fill="url(#vsTkV)" stroke="#1f4a17" stroke-width="1.2"/>
+        <path d="M322 110 Q332 104 345 104" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1.5" stroke-linecap="round"/>
+        ${wheel(68)}${wheel(124)}${wheel(345)}
       </svg>`;
       ov.appendChild(truck);
       const tIn = truck.animate([{ transform: `translate(${-TW - 40}px, ${truckTop}px)` }, { transform: `translate(${truckX}px, ${truckTop}px)` }],
@@ -2737,25 +2807,55 @@ background-position: center 55%;
       truck.classList.remove('rolling');
       truck.animate([{ transform: `translate(${truckX}px, ${truckTop}px)` }, { transform: `translate(${truckX}px, ${truckTop + 4}px)` }, { transform: `translate(${truckX}px, ${truckTop}px)` }], { duration: 300 });
 
-      /* 5. Ils sautent dans la benne */
+      /* 5. Ils vont à l'arrière du camion en sautillant, montent par derrière et avancent dans la benne */
       const floorY = truckTop + ts * 60 + sh * 0.7, bedL = truckX + ts * 24, bedW = ts * 220;
+      const rearX = truckX - sw * 0.45, rearY = truckTop + ts * 162;
+      const bed = document.createElement('div');
+      bed.style.cssText = 'position:absolute;left:0;top:0;width:100%;overflow:hidden;z-index:600;pointer-events:none;height:' + (truckTop + ts * 112) + 'px';
+      ov.appendChild(bed);
       const per = Math.ceil(n / 2);
-      await Promise.all(soldiers.map((s, i) => {
+      const spots = soldiers.map((_, i) => {
         const row = i % 2, j = Math.floor(i / 2);
-        const bx = bedL + (j + 0.5 + row * 0.5) * (bedW / (per + 0.5));
-        s.style.zIndex = 500 + row * 10 + j;
-        s.pose('hop');
-        return hop(s, bx, floorY - (1 - row) * sh * 0.3, 900, 1, sh * 1.1, i * 110).then(() => s.pose('waveA'));
+        return { x: bedL + (j + 0.5 + row * 0.5) * (bedW / (per + 0.5)), y: floorY - (1 - row) * sh * 0.3, z: 500 + row * 30 + j };
+      }).sort((a, b) => b.x - a.x);
+      const HOP = 190, step = sw * 0.9;
+      const queue = soldiers.map(s => {
+        const mid = { x: s.x > rearX + sw ? rearX - sw * 0.3 : s.x, y: Math.min(s.y, rearY) };
+        const d1 = Math.hypot(mid.x - s.x, mid.y - s.y), d2 = Math.hypot(rearX - mid.x, rearY - mid.y);
+        const h1 = Math.max(1, Math.round(d1 / step)), h2 = Math.max(1, Math.round(d2 / step));
+        return { s, mid, h1, h2, walk: (h1 + h2) * HOP };
+      }).sort((a, b) => a.walk - b.walk);
+      let lastArrive = 0;
+      await Promise.all(queue.map((q, i) => {
+        const start = Math.max(i * 70, lastArrive + 220 - q.walk);
+        lastArrive = start + q.walk;
+        const spot = spots[i], s = q.s;
+        return (async () => {
+          await wait(start);
+          if (!alive()) return;
+          s.style.zIndex = 1100 + i;
+          s.pose('hop');
+          await hop(s, q.mid.x, q.mid.y, q.h1 * HOP, q.h1, sh * 0.22);
+          await hop(s, rearX, rearY, q.h2 * HOP, q.h2, sh * 0.22);
+          /* saut sur le hayon arrière, puis on le range dans la benne (les pieds sont cachés sous le plancher) */
+          await hop(s, bedL - sw * 0.1, floorY - sh * 0.95, 220, 1, sh * 0.12);
+          bed.appendChild(s);
+          s.style.zIndex = spot.z;
+          await hop(s, bedL + sw * 0.1, floorY, 170, 1, sh * 0.05);
+          const h3 = Math.max(1, Math.round((spot.x - s.x) / step));
+          await hop(s, spot.x, spot.y, h3 * 150, h3, sh * 0.12);
+          s.pose('waveA');
+        })();
       }));
       if (!alive()) return;
       let wave = 0;
       const waver = setInterval(() => { wave++; soldiers.forEach((s, i) => s.pose((wave + i) % 2 ? 'waveA' : 'waveB')); }, 220);
-      await wait(500);
+      await wait(250);
 
       /* 6. Le camion repart avec tout le monde */
       truck.classList.add('rolling');
       const dx = W + 60 - truckX;
-      const opts = { duration: 2200, easing: 'cubic-bezier(.55,0,.85,.4)', fill: 'forwards' };
+      const opts = { duration: 1400, easing: 'cubic-bezier(.55,0,.85,.4)', fill: 'forwards' };
       const puffs = setInterval(() => {
         const r = truck.getBoundingClientRect();
         const p = document.createElement('div');
